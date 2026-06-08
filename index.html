@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Best Friend Day 💖</title>
+  <meta name="description" content="An interactive Best Friend Day memory scrapbook with gallery, cards, modals, and music." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="floating-hearts" aria-hidden="true">
+    <span>💖</span><span>💗</span><span>💕</span><span>💝</span><span>💛</span><span>🩷</span>
+  </div>
+
+  <section id="landing" class="landing-screen fade-in">
+    <div class="floating-photo floating-a"><img src="images/photo1.jpg" alt="Best Friend Day memory photo 1" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'image-fallback\'>Image not found</p>');" /></div>
+    <div class="floating-photo floating-b"><img src="images/photo2.jpg" alt="Best Friend Day memory photo 2" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'image-fallback\'>Image not found</p>');" /></div>
+    <div class="floating-photo floating-c"><img src="images/photo3.jpg" alt="Best Friend Day memory photo 3" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'image-fallback\'>Image not found</p>');" /></div>
+
+    <div class="landing-card">
+      <p class="eyebrow">A dreamy scrapbook for your bestie</p>
+      <h1>Happy Best Friend Day 💖</h1>
+      <p id="typingLine" class="tagline"></p>
+      <button id="enterBtn" class="pill-btn" type="button">Enter</button>
+    </div>
+  </section>
+
+  <main id="main" class="site-shell hidden" aria-live="polite">
+    <header class="topbar">
+      <p class="brand">Best Friend Day</p>
+      <button id="muteBtn" class="ghost-btn" type="button" aria-pressed="false">🔈 Mute</button>
+    </header>
+
+    <audio id="music" loop preload="auto">
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <section class="section-card intro-card">
+      <p class="eyebrow">Memory scrapbook</p>
+      <h2>Choose a little memory box to open 💕</h2>
+      <p class="tagline">Tap a card to reveal its photo collection, then click any image for a full popup view.</p>
+    </section>
+
+    <section class="section-card">
+      <div class="section-heading">
+        <p class="eyebrow">Category Cards</p>
+        <h2>Memory boxes</h2>
+      </div>
+      <div id="cardGrid" class="card-grid"></div>
+    </section>
+
+    <section id="collectionSection" class="section-card hidden">
+      <div class="section-heading">
+        <p class="eyebrow">Photo Collection</p>
+        <h2 id="collectionTitle">Collection</h2>
+        <p id="collectionText" class="tagline"></p>
+      </div>
+      <div id="photoCollection" class="photo-grid"></div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-heading">
+        <p class="eyebrow">Group Memory</p>
+        <h2>Pick any favorite snapshot</h2>
+      </div>
+      <div id="groupMemoryGrid" class="group-grid"></div>
+    </section>
+
+    <section class="section-card reveal-card">
+      <div class="section-heading">
+        <p class="eyebrow">Hidden Message</p>
+        <h2>Tap the heart for a surprise 💌</h2>
+      </div>
+      <button id="revealBtn" class="heart-btn" type="button" aria-label="Reveal hidden message">💖</button>
+      <p id="secret" class="secret-message">You are the best thing in my life 🫶</p>
+    </section>
+
+    <section class="section-card quiz-card">
+      <div class="section-heading">
+        <p class="eyebrow">Best Friend Quiz</p>
+        <h2>Answer the cute quiz and reveal a surprise memory 💖</h2>
+        <p class="tagline">Each choice opens a tiny memory popup with a sweet message.</p>
+      </div>
+
+      <div id="quizBox" class="quiz-shell fade-in">
+        <p id="quizProgress" class="quiz-progress">Question 1 / 5</p>
+        <h3 id="quizQuestion" class="quiz-question"></h3>
+        <div id="quizOptions" class="quiz-options"></div>
+        <div class="quiz-actions">
+          <button id="nextBtn" class="pill-btn" type="button" disabled>Next ➡️</button>
+        </div>
+        <p id="quizNote" class="quiz-note">Pick one answer to reveal the memory surprise.</p>
+      </div>
+    </section>
+
+    <section class="section-card letter-card">
+      <p class="eyebrow">Final Letter</p>
+      <h2>Read your special letter</h2>
+      <button id="letterBtn" class="pill-btn secondary" type="button">Read Letter 💌</button>
+    </section>
+  </main>
+
+  <div id="photoModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="modal"></div>
+    <div class="modal-card zoom-in">
+      <button class="modal-close" type="button" data-close="modal" aria-label="Close image">×</button>
+      <img id="modalImage" src="" alt="Memory popup" />
+      <p id="modalCaption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <div id="letterModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="letter"></div>
+    <div class="modal-card letter-modal zoom-in">
+      <button class="modal-close" type="button" data-close="letter" aria-label="Close letter">×</button>
+      <p class="eyebrow">Letter to my best friend</p>
+      <h3>Happy Best Friend Day 💖</h3>
+      <p id="letterText" class="letter-text">I don’t even know where to start, because no words are enough to describe how special you are to me. You are not just my best friend, you are my happiness, my support system, and my safe place. Every memory with you is special and unforgettable. No matter what happens, I will always stand by your side. I am truly lucky to have you in my life 💕</p>
+    </div>
+  </div>
+
+  <div id="quizModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="quiz"></div>
+    <div class="modal-card quiz-modal zoom-in">
+      <button class="modal-close" type="button" data-close="quiz" aria-label="Close quiz answer">×</button>
+      <img id="quizImage" src="" alt="Quiz memory reveal" />
+      <p id="quizMessage" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
