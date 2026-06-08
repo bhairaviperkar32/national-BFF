@@ -115,20 +115,6 @@ function normalizeImagePath(path) {
   return String(path || '').replace(/^\/+/, '').replace(/\\/g, '/');
 }
 
-function attachImageFallback(img) {
-  if (!img) return;
-  img.onerror = function () {
-    this.style.display = 'none';
-    const parent = this.parentElement;
-    if (parent && !parent.querySelector('.image-fallback')) {
-      const fallback = document.createElement('p');
-      fallback.className = 'image-fallback';
-      fallback.textContent = 'Image not found';
-      parent.appendChild(fallback);
-    }
-  };
-}
-
 function typeText(text, el, speed = 45) {
   el.textContent = '';
   let i = 0;
@@ -179,14 +165,13 @@ function renderGroupGallery() {
     .map(
       (item) => `
         <button class="group-btn" type="button" data-open="group" data-src="${normalizeImagePath(item.src)}" data-caption="${item.caption}">
-          <img src="${normalizeImagePath(item.src)}" alt="${item.caption}" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'image-fallback\'>Image not found</p>');" />
+          <img src="${normalizeImagePath(item.src)}" alt="${item.caption}" loading="lazy" />
           <span>${item.caption}</span>
         </button>
       `
     )
     .join('');
 
-  groupMemoryGrid.querySelectorAll('img').forEach(attachImageFallback);
 }
 
 function openCollection(category) {
@@ -198,13 +183,12 @@ function openCollection(category) {
   photoCollection.innerHTML = item.images
     .map((entry) => `
       <article class="photo-frame" data-open="photo" data-src="${normalizeImagePath(entry.src)}" data-caption="${entry.caption}">
-        <img src="${normalizeImagePath(entry.src)}" alt="${entry.caption}" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'image-fallback\'>Image not found</p>');" />
+        <img src="${normalizeImagePath(entry.src)}" alt="${entry.caption}" loading="lazy" />
         <p class="photo-caption">${entry.caption}</p>
       </article>
     `)
     .join('');
 
-  photoCollection.querySelectorAll('img').forEach(attachImageFallback);
   collectionSection.classList.remove('hidden');
   collectionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -212,7 +196,6 @@ function openCollection(category) {
 function openModal(src, caption) {
   modalImage.src = normalizeImagePath(src);
   modalCaption.textContent = caption;
-  attachImageFallback(modalImage);
   photoModal.classList.remove('hidden');
 }
 
@@ -236,7 +219,7 @@ function renderQuiz() {
     .map(
       (option, index) => `
         <button class="quiz-option ${selectedAnswer === index ? 'selected' : ''}" type="button" data-option="${index}">
-          <img src="${normalizeImagePath(option.img)}" alt="${option.text}" />
+          <img src="${normalizeImagePath(option.img)}" alt="${option.text}" loading="lazy" />
           <span>
             <strong>${option.text}</strong>
             ${option.msg}
@@ -248,13 +231,11 @@ function renderQuiz() {
   nextBtn.disabled = selectedAnswer === null;
   nextBtn.textContent = quizIndex === quiz.length - 1 ? 'Finish 🎉' : 'Next ➡️';
   quizNote.textContent = selectedAnswer === null ? 'Pick one answer to reveal the memory surprise.' : 'Nice choice! Tap Next to continue.';
-  quizOptions.querySelectorAll('img').forEach(attachImageFallback);
 }
 
 function openQuizAnswer(index) {
   const option = quiz[quizIndex].options[index];
   quizImage.src = normalizeImagePath(option.img);
-  attachImageFallback(quizImage);
   quizMessage.textContent = option.msg;
   quizModal.classList.remove('hidden');
   if (quizIndex === quiz.length - 1) {

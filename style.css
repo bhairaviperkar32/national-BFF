@@ -19,7 +19,6 @@ body {
 }
 img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 button { font-family: inherit; cursor: pointer; }
-.image-fallback { color: #a04e78; font-weight: 600; text-align: center; padding: 8px 0; }
 
 .floating-hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
 .floating-hearts span { position: absolute; font-size: 1.4rem; opacity: 0.35; animation: floatHeart 8s linear infinite; }
