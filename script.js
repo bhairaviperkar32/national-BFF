@@ -146,6 +146,14 @@ function renderCategoryCards() {
     .map(
       (item) => `
         <article class="memory-card" data-category="${item.id}" tabindex="0" aria-label="Open ${item.title} gallery">
+          <div class="mini-collage">
+            ${item.images
+              .slice(0, 3)
+              .map(
+                (image) => `<img src="${normalizeImagePath(image.src)}" alt="${image.caption}" loading="lazy" />`
+              )
+              .join('')}
+          </div>
           <div>
             <span class="card-label">${item.badge}</span>
             <div class="card-icon" aria-hidden="true">${item.icon}</div>
