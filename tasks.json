@@ -1,0 +1,82 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Copy images",
+			"type": "shell",
+			"command": "python -c \"print('hi')\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Write test",
+			"type": "shell",
+			"command": "echo hello > test.txt",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Copy photos",
+			"type": "shell",
+			"command": "python copy_imgs.py",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup temp files",
+			"type": "shell",
+			"command": "del copy_imgs.py test.txt",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup temp files",
+			"type": "shell",
+			"command": "Remove-Item copy_imgs.py, test.txt",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup copy script",
+			"type": "shell",
+			"command": "Remove-Item copy_imgs.py",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup test file",
+			"type": "shell",
+			"command": "Remove-Item test.txt",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect music file",
+			"type": "shell",
+			"command": "python -c \"import os; print('size', os.path.getsize('music.mp3')); print('exists', os.path.exists('music.mp3'))\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect music file",
+			"type": "shell",
+			"command": "python -c 'import os; print(\"size\", os.path.getsize(\"music.mp3\")); print(\"exists\", os.path.exists(\"music.mp3\"))'",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect music file",
+			"type": "shell",
+			"command": "python inspect_music.py",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Serve site",
+			"type": "shell",
+			"command": "python -m http.server 8000",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
